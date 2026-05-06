@@ -27,14 +27,14 @@ Survival models for pediatric heart transplant outcomes using the Wisotzkey et a
 | 5 years | 0.1302 | 0.6137 |
 
 ### Interpretation
-- **Both models perform nearly identically at 1 year** — RSF edges the classifier by only 0.007 on C-index
-- **RSF degrades over time** — expected; predicting 5 years out is genuinely harder with limited data
-- **The classifier is simpler and just as good** for 1-year predictions — easier to interpret and deploy
+- **Both models perform nearly identically at 1 year:** RSF edges the classifier by only 0.007 on C-index
+- **RSF degrades over time** expected; predicting 5 years out is genuinely harder with limited data
+- **The classifier is simpler and just as good** for 1 year predictions, easier to interpret and deploy
 - **The RSF is more valuable** if you need survival probabilities at multiple time points, not just 1 year
 
 ### Metric Guide
-- **Brier Score** — measures calibration (accuracy of predicted probabilities). Lower is better. 0 = perfect, 0.25 = useless.
-- **C-index** — measures discrimination (can the model correctly rank who dies sooner). Higher is better. 0.5 = random, 1.0 = perfect. 0.70+ is considered strong for clinical survival data.
+- **Brier Score** measures calibration (accuracy of predicted probabilities). Lower is better. 0 = perfect, 0.25 = useless.
+- **C-index** measures discrimination (can the model correctly rank who dies sooner). Higher is better. 0.5 = random, 1.0 = perfect. 0.70+ is considered strong for clinical survival data.
 
 ---
 
