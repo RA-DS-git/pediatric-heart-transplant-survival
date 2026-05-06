@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heart-transplant-survival"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0,<3",
+    "numpy>=1.26,<3",
+    "matplotlib>=3.8,<4",
+    "scikit-learn>=1.4,<2",
+    "scikit-survival>=0.22,<1",
+    "mlflow>=2.12,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
