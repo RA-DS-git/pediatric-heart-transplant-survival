@@ -89,9 +89,8 @@ def plot_survival_curves(
     Parameters
     ----------
     model     : Fitted RandomSurvivalForest.
-    X         : Feature matrix — only the first n rows are used.
+    X         : Feature matrix, only the first n rows are used.
     n         : Number of subjects to plot.
-    save_path : If given, save the figure; otherwise close quietly.
     """
     funcs = model.predict_survival_function(X[:n])
     plt.figure()

@@ -17,7 +17,7 @@ def train_rsf(
     X                : Feature matrix.
     y                : Structured survival array (sksurv format).
     n_estimators     : Number of trees (default 300).
-    min_samples_leaf : Minimum leaf size (default 30 — conservative for small data).
+    min_samples_leaf : Minimum leaf size (default 30).
     random_state     : Random seed.
 
     Returns

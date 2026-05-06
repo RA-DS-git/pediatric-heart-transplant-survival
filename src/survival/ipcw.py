@@ -15,7 +15,7 @@ def compute_ipcw(df: pd.DataFrame, G, tau: float) -> pd.DataFrame:
     Parameters
     ----------
     df  : DataFrame with 'obs_time' and 'event' columns.
-    G   : Callable — censoring survival function G(t).
+    G   : Callable, censoring survival function G(t).
     tau : Time horizon.
     """
     df = df.copy()

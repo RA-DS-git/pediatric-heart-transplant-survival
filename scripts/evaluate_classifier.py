@@ -1,8 +1,6 @@
 """
 Evaluate the IPCW logistic regression classifier (without MLflow).
 
-Useful for a quick sanity check or exploratory runs.
-
 Run from the project root:
     python scripts/evaluate_classifier.py
 

@@ -18,8 +18,6 @@ def encode(
     ----------
     df       : Input DataFrame.
     features : Feature columns to encode.
-    ref_cols : If provided, align output columns to this reference
-               (used to match test set columns to training set columns).
     """
     X = pd.get_dummies(df[features], drop_first=True)
     if ref_cols is not None:
