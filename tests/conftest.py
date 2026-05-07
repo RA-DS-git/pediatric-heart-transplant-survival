@@ -1,9 +1,3 @@
-"""
-pytest configuration.
-
-Adds the project root to sys.path so that `import src.*` works
-regardless of where pytest is invoked from.
-"""
 import sys
 from pathlib import Path
 

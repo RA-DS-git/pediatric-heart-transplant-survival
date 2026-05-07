@@ -9,8 +9,7 @@ __pycache__/
 venv/
 env/
 
-# Outputs — generated at runtime, not committed
-results/
+# Outputs
 mlruns/
 mlflow.db
 *.png

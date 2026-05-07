@@ -18,16 +18,7 @@ def plot_calibration(
     weights: np.ndarray,
     save_path: Path | None = None,
 ) -> None:
-    """
-    Plot predicted risk (x-axis) vs. observed event rate (y-axis) in 5 bins.
 
-    Parameters
-    ----------
-    risk      : Predicted risk probabilities.
-    y         : Binary observed outcomes.
-    weights   : IPCW sample weights.
-    save_path : If given, save the figure to this path; otherwise close quietly.
-    """
     bins = np.linspace(0, 1, 6)
     b    = np.digitize(risk, bins)
 
@@ -54,7 +45,7 @@ def plot_km(
     title: str = "Kaplan-Meier Curve",
     save_path: Path | None = None,
 ) -> None:
-    """Plot a Kaplan-Meier survival curve."""
+
     t, s = kaplan_meier_estimator(event.astype(bool), time)
     plt.figure()
     plt.step(t, s, where="post")
@@ -68,7 +59,6 @@ def plot_risk_distribution(
     risk: np.ndarray,
     save_path: Path | None = None,
 ) -> None:
-    """Histogram of predicted risk scores."""
     plt.figure()
     plt.hist(risk, bins=30, edgecolor="white")
     plt.xlabel("Predicted risk")
@@ -83,15 +73,7 @@ def plot_survival_curves(
     n: int = 5,
     save_path: Path | None = None,
 ) -> None:
-    """
-    Plot individual survival curves predicted by an RSF model.
 
-    Parameters
-    ----------
-    model     : Fitted RandomSurvivalForest.
-    X         : Feature matrix, only the first n rows are used.
-    n         : Number of subjects to plot.
-    """
     funcs = model.predict_survival_function(X[:n])
     plt.figure()
     for fn in funcs:

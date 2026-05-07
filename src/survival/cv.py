@@ -8,17 +8,7 @@ from src.data.preprocess import encode
 
 
 def cv_rsf(train_df: pd.DataFrame, features: list[str], n_splits: int = 5) -> list[float]:
-    """
-    K-fold cross-validation for the Random Survival Forest.
 
-    Returns a list of per-fold IPCW C-index scores.
-
-    Parameters
-    ----------
-    train_df  : Full training DataFrame.
-    features  : Feature column names (pre-computed by get_features).
-    n_splits  : Number of CV folds (default 5).
-    """
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
     X  = encode(train_df, features)
     scores = []

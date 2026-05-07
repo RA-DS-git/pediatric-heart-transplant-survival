@@ -5,12 +5,12 @@ from src.survival.ipcw import compute_ipcw
 
 
 def G(t: float) -> float:
-    """Constant censoring survival function — always 0.9."""
+
     return 0.9
 
 
 def test_early_censored_gets_zero_weight():
-    """A subject censored before tau should receive weight=0 and y=NaN."""
+
     df  = pd.DataFrame({"obs_time": [0.5, 2.0], "event": [0, 1]})
     out = compute_ipcw(df, G, tau=1.0)
 
@@ -19,7 +19,7 @@ def test_early_censored_gets_zero_weight():
 
 
 def test_event_before_tau_gets_y_one():
-    """A subject who had an event before tau should get y=1."""
+
     df  = pd.DataFrame({"obs_time": [0.5], "event": [1]})
     out = compute_ipcw(df, G, tau=1.0)
 
@@ -27,7 +27,7 @@ def test_event_before_tau_gets_y_one():
 
 
 def test_survivor_beyond_tau_gets_y_zero():
-    """A subject still alive at tau should get y=0 and non-zero weight."""
+
     df  = pd.DataFrame({"obs_time": [2.0], "event": [0]})
     out = compute_ipcw(df, G, tau=1.0)
 

@@ -28,9 +28,9 @@ Survival models for pediatric heart transplant outcomes using the Wisotzkey et a
 
 ### Interpretation
 - **Both models perform nearly identically at 1 year:** RSF edges the classifier by only 0.007 on C-index
-- **RSF degrades over time** expected; predicting 5 years out is genuinely harder with limited data
+- **RSF degrades over time** and is expected; predicting 5 years out is genuinely harder with limited data
 - **The classifier is simpler and just as good** for 1 year predictions, easier to interpret and deploy
-- **The RSF is more valuable** if you need survival probabilities at multiple time points, not just 1 year
+- **The RSF is more valuable** if we need survival probabilities at multiple time points, not just 1 year
 
 ### Metric Guide
 - **Brier Score** measures calibration (accuracy of predicted probabilities). Lower is better. 0 = perfect, 0.25 = useless.
@@ -93,15 +93,15 @@ Prints metrics to stdout and saves `results/calibration_eval.png`.
 pediatric-heart-transplant-survival/
 ├── dataset/
 │   └── tx_survival.csv        # Source data (Wisotzkey et al. 2023)
-├── results/                   # Generated plots — git-ignored, created at runtime
+├── results/                   # Generated plots
 ├── scripts/
 │   ├── train_classifier.py    # Train IPCW logistic regression + log to MLflow
 │   ├── train_rsf.py           # Train Random Survival Forest + log to MLflow
 │   └── evaluate_classifier.py # Quick evaluation without MLflow
 ├── src/
-│   ├── config.py              # Paths, constants (TAU, DROP_COLS, RESULTS_DIR)
+│   ├── config.py              # Paths, constants
 │   ├── data/
-│   │   ├── load_data.py       # Load CSV → train/test DataFrames
+│   │   ├── load_data.py       # Load CSV
 │   │   └── preprocess.py      # Feature selection + one-hot encoding
 │   ├── models/
 │   │   ├── classifier.py      # IPCW logistic regression + grid search
@@ -114,13 +114,13 @@ pediatric-heart-transplant-survival/
 │   └── visualization/
 │       └── plots.py           # Calibration, KM, survival curves, risk distribution
 ├── tests/
-│   ├── conftest.py            # Adds project root to sys.path
-│   ├── test_data.py           # Data loading tests
-│   ├── test_ipcw.py           # IPCW weight logic tests
-│   └── test_model.py          # Classifier fit / predict_proba tests
+│   ├── conftest.py            
+│   ├── test_data.py           
+│   ├── test_ipcw.py           
+│   └── test_model.py          
 ├── pyproject.toml             # Package definition + dependencies
 ├── requirements.txt           # Pinned dependency ranges
-└── .gitignore                 # Excludes results/, mlruns/, .venv/, plots
+└── .gitignore                 
 ```
 
 ---

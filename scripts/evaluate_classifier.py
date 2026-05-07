@@ -19,7 +19,7 @@ from src.visualization.plots import plot_calibration
 
 
 def main() -> None:
-    # ── 1. Load + IPCW weights ────────────────────────────────────────────────
+    # 1. Load + IPCW weights
     train, test = load_data()
 
     gt, gs = compute_km(train["event"] == 0, train["obs_time"])
@@ -31,25 +31,25 @@ def main() -> None:
     train = train.dropna(subset=["y"])
     test  = test.dropna(subset=["y"])
 
-    # ── 2. Feature encoding ───────────────────────────────────────────────────
+    # 2. Feature encoding
     features = get_features(train, DROP_COLS)
     X_train  = encode(train, features)
     X_test   = encode(test,  features, ref_cols=X_train.columns)
 
-    # ── 3. Train + predict ────────────────────────────────────────────────────
+    # 3. Train + predict
     model, best_params = tune_classifier(X_train, train["y"], train["ipcw"])
     print(f"Best params : {best_params}")
 
     risk = model.predict_proba(X_test)[:, 1]
 
-    # ── 4. Metrics ────────────────────────────────────────────────────────────
+    # 4. Metrics
     bs = brier(test["y"].values, risk, test["ipcw"].values)
     ci = cindex(train, test, risk, TAU)
 
     print(f"Brier score : {bs:.4f}")
     print(f"C-index     : {ci:.4f}")
 
-    # ── 5. Calibration plot ───────────────────────────────────────────────────
+    # 5. Calibration plot
     cal_path = RESULTS_DIR / "calibration_eval.png"
     plot_calibration(risk, test["y"].values, test["ipcw"].values, save_path=cal_path)
     print(f"Calibration plot saved → {cal_path}")

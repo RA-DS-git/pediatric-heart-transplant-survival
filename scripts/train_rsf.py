@@ -33,13 +33,7 @@ MIN_SAMPLES_LEAF = 30
 
 
 def evaluate_rsf(model, X_test, train_df, test_df) -> dict[int, dict[str, float]]:
-    """
-    Compute Brier score and C-index at each time in EVAL_TIMES.
 
-    Returns
-    -------
-    results : {time: {"brier": float, "cindex": float}}
-    """
     y_train = Surv.from_arrays(train_df["event"].astype(bool), train_df["obs_time"])
     y_test  = Surv.from_arrays(test_df["event"].astype(bool),  test_df["obs_time"])
 
@@ -59,7 +53,7 @@ def evaluate_rsf(model, X_test, train_df, test_df) -> dict[int, dict[str, float]
 
 
 def main() -> None:
-    # ── 1. Load + encode ──────────────────────────────────────────────────────
+    # 1. Load + encode
     train, test = load_data()
     features    = get_features(train, DROP_COLS)
     X_train     = encode(train, features)
@@ -67,7 +61,7 @@ def main() -> None:
 
     y_train = Surv.from_arrays(train["event"].astype(bool), train["obs_time"])
 
-    # ── 2. Train + evaluate ───────────────────────────────────────────────────
+    # 2. Train + evaluate
     mlflow.set_experiment("random_survival_forest")
 
     with mlflow.start_run():
@@ -82,7 +76,7 @@ def main() -> None:
             mlflow.log_metric(f"brier_{t}",  m["brier"])
             mlflow.log_metric(f"cindex_{t}", m["cindex"])
 
-        # ── 3. Save plots + log as artifacts ──────────────────────────────────
+        # 3. Save plots + log as artifacts
         risk_at_1 = 1 - np.array([fn(1) for fn in model.predict_survival_function(X_test)])
 
         cal_path = RESULTS_DIR / "calibration_rsf.png"
@@ -98,10 +92,10 @@ def main() -> None:
         plot_survival_curves(model, X_test, n=5, save_path=sc_path)
         mlflow.log_artifact(str(sc_path))
 
-        # ── 4. Log model ──────────────────────────────────────────────────────
+        # 4. Log model
         mlflow.sklearn.log_model(model, "rsf_model")
 
-        # ── 5. Print summary ──────────────────────────────────────────────────
+        # 5. Print summary
         print("\nRSF Results:")
         for t, m in results.items():
             print(f"  {t}y  Brier: {m['brier']:.4f}   C-index: {m['cindex']:.4f}")

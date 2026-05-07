@@ -3,21 +3,7 @@ import pandas as pd
 
 
 def compute_ipcw(df: pd.DataFrame, G, tau: float) -> pd.DataFrame:
-    """
-    Attach IPCW weights and binary outcome 'y' to each row.
 
-    Rules
-    -----
-    - If a subject is censored before tau  → weight = 0, y = NaN  (dropped later)
-    - Otherwise                            → weight = 1 / G(min(t, tau))
-                                             y = 1 if event happened at or before tau, else 0
-
-    Parameters
-    ----------
-    df  : DataFrame with 'obs_time' and 'event' columns.
-    G   : Callable, censoring survival function G(t).
-    tau : Time horizon.
-    """
     df = df.copy()
 
     t = df["obs_time"].values
