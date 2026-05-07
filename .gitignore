@@ -12,7 +12,6 @@ env/
 # Outputs
 mlruns/
 mlflow.db
-*.png
 
 # macOS
 .DS_Store
